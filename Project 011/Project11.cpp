@@ -1,5 +1,4 @@
 // Copyright 2017 <Abhi Agarwal>
-
 #include <array>
 #include <fstream>
 #include <iostream>

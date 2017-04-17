@@ -1,3 +1,4 @@
+//Copyright 2017 <Abhi Agarwal>
 #include <cmath>
 #include <iostream>
 #include <string>

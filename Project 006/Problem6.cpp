@@ -1,3 +1,4 @@
+// Copyright 2017 <Abhi Agarwal>
 #include <iostream>
 
 uint32_t getSquareSum(const size_t &);
