@@ -62,18 +62,18 @@ std::list<uint8_t> getSum(
   std::list<uint8_t> sum;
   uint16_t temp_sum = 0;
   uint16_t remainder = 0;
-  for (size_t i = num_length - 1; i > 0; i--) {
+  for (size_t i = 0; i < numbers.size(); i++) {
     temp_sum = 0;
-    std::cout<<"Sums: ";
+    std::cout << "Sums: ";
     for (size_t j = 0; j < num_numbers; j++) {
-      const uint8_t cell = numbers[j][i];
+      const uint8_t cell = numbers[j][numbers.size() - 1 - i];
       temp_sum += cell;
-      std::cout<<temp_sum<<", "<<std::endl;
+      std::cout << temp_sum << ", " << std::endl;
     }
     temp_sum += remainder;
     remainder = static_cast<uint8_t>(std::floor(temp_sum / 10));
     sum.push_front(temp_sum % 10);
-    std::cout<<std::endl;
+    std::cout << std::endl;
   }
 
   return sum;

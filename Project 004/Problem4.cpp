@@ -32,7 +32,6 @@ bool isPalindrome(const uint32_t &multiple) {
   uint32_t reverse = 0;
   while (number != 0) {
     reverse = reverse * 10 + number % 10;
-    ;
     number = number / 10;
   }
   return reverse == multiple;
