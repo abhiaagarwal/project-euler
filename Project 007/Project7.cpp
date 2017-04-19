@@ -1,20 +1,20 @@
 // Copyright 2017 <Abhi Agarwal>
-#include <cstdint>
 #include <iostream>
 
 bool isPrime(const uint64_t &);
 
 int main() {
-  constexpr uint64_t number = 600851475143;
-  uint64_t factor = 0;
-  for (uint64_t i = 1; i * i < number; i++) {
-    // Only checks against Square Root the factors
-    if ((number % i == 0) && isPrime(i)) {
-      factor = i;
+  constexpr size_t limit = 100001;
+  size_t counter = 0;
+  size_t i;
+  for (i = 1; counter != limit; i++) {
+    if (isPrime(i)) {
+      std::cout << "Found Prime: " << i << std::endl;
+      counter++;
     }
   }
-
-  std::cout << "Factor is: " << factor << std::endl;
+  std::cout << "Number is: " << i <<std::endl;
+  return 0;
 }
 
 bool isPrime(const uint64_t &number) {
