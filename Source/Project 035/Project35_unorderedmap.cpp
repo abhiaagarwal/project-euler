@@ -9,8 +9,6 @@ uint32_t shuffleDigits(const uint32_t &, const uint16_t &, const size_t &);
 bool isCircularPrime(const uint32_t &);
 bool isPrime(const uint32_t &);
 
-std::unordered_map<uint32_t, bool> prime_map;
-
 int main() {
   constexpr uint32_t limit = 1000000;
   size_t counter = 0;
@@ -62,6 +60,8 @@ uint32_t shuffleDigits(const uint32_t &number, const uint16_t &digits,
 }
 
 bool isPrime(const uint32_t &number) {
+  static std::unordered_map<uint32_t, bool> prime_map;
+
   const auto iter = prime_map.find(number);
   if (iter != prime_map.end()) {
     return iter->second;

@@ -9,8 +9,6 @@ uint32_t shuffleDigits(const uint32_t &, const uint16_t &, const size_t &);
 bool isCircularPrime(const uint32_t &);
 bool isPrime(const uint32_t &);
 
-std::set<uint32_t> prime_set;
-
 int main() {
   constexpr uint32_t limit = 1000000;
   size_t counter = 0;
@@ -62,6 +60,8 @@ bool isCircularPrime(const uint32_t &number) {
 }
 
 bool isPrime(const uint32_t &number) {
+  static std::set<uint32_t> prime_set;
+
   if(prime_set.find(number) != prime_set.end()) {
     return true;
   }
