@@ -1,7 +1,6 @@
 // Copyright 2017 <Abhi Agarwal>
 #include <cstdint>
 #include <iostream>
-#include <map>
 
 uint32_t collatz(uint32_t);
 
