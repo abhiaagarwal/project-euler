@@ -10,10 +10,13 @@
 
 constexpr size_t num_length = 50;
 constexpr size_t num_numbers = 100;
-std::array<std::array<uint8_t, num_length>, num_numbers> readFile();
+
+using numbers_array_t =
+    std::array<std::array<uint8_t, num_length>, num_numbers>;
+
+numbers_array_t readFile();
 std::array<uint8_t, num_length> lineToDigits(const std::string &);
-std::list<uint8_t>
-getSum(const std::array<std::array<uint8_t, num_length>, num_numbers> &);
+std::list<uint8_t> getSum(const numbers_array_t &);
 
 int main() {
   const auto numbers = readFile();
@@ -31,8 +34,8 @@ int main() {
   return 0;
 }
 
-std::array<std::array<uint8_t, num_length>, num_numbers> readFile() {
-  std::array<std::array<uint8_t, num_length>, num_numbers> numbers;
+numbers_array_t readFile() {
+  numbers_array_t numbers;
 
   const std::string file_name = "numbers.txt";
   std::ifstream file(file_name);
@@ -58,8 +61,7 @@ std::array<uint8_t, num_length> lineToDigits(const std::string &number) {
   return digits;
 }
 
-std::list<uint8_t> getSum(
-    const std::array<std::array<uint8_t, num_length>, num_numbers> &numbers) {
+std::list<uint8_t> getSum(const numbers_array_t &numbers) {
   std::list<uint8_t> sum;
   uint16_t temp_sum = 0;
   uint16_t remainder = 0;
