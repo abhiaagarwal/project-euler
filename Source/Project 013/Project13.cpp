@@ -3,6 +3,8 @@
 #include <array>
 #include <cmath>
 #include <cstdint>
+#include <cstdlib>
+#include <experimental/string_view>
 #include <fstream>
 #include <iostream>
 #include <list>
@@ -15,14 +17,14 @@ constexpr size_t num_numbers = 100;
 
 // Typedefs
 // These makes things easier to read
-using numbers_t = std::array<uint8_t, num_length>;
+using numbers_t = std::array<uint16_t, num_length>;
 using numbers_array_t = std::array<numbers_t, num_numbers>;
-using sum_t = std::list<uint8_t>;
+using sum_t = std::list<uint16_t>;
 
 // Function Prototypes
 // This is good practice
 numbers_array_t readFile();
-numbers_t lineToDigits(const std::string &);
+numbers_t lineToDigits(const std::experimental::string_view &);
 sum_t getSum(const numbers_array_t &);
 void readSum(const sum_t &);
 
@@ -39,15 +41,17 @@ int main() {
   */
 
   /*
+
   for (size_t i = 0; i < num_numbers; i++) {
     for (size_t j = 0; j < num_length; j++) {
       const auto cell = numbers[i][j];
       std::cout << "numbers[" << i << "][" << j << "] is " << cell << std::endl;
     }
   }
+
   */
 
-  // const auto sum = getSum(numbers);
+  const auto sum = getSum(numbers);
   // readSum(sum);
 
   return 0;
@@ -71,11 +75,10 @@ numbers_array_t readFile() {
   return numbers;
 }
 
-numbers_t lineToDigits(const std::string &number) {
+numbers_t lineToDigits(const std::experimental::string_view &number) {
   numbers_t digits;
   for (size_t i = 0; i < number.size(); i++) {
-    const auto temp = static_cast<uint8_t>(number[i]);
-    digits[i] = temp;
+    digits[i] = static_cast<uint16_t>(std::atoi(&number[i]));
   }
   return digits;
 }
@@ -83,25 +86,24 @@ numbers_t lineToDigits(const std::string &number) {
 sum_t getSum(const numbers_array_t &numbers) {
   sum_t sum;
 
-  uint16_t temp_sum = 0;
   uint16_t remainder = 0;
-
   for (size_t i = 0; i < num_length; i++) {
-    temp_sum = 0;
+    uint16_t temp_sum = 0;
     for (size_t j = 0; j < num_numbers; j++) {
       /*
-      In theory, the first cell will be: numbers[49][0]
-      The second cell will be: numbers[49][1]
-      The third cell will be: numbers[49][2]
-      It will end with [49][99]
-      Then, it goes to [48][99]
+      In theory, the first cell will be: numbers[0][49]
+      The second cell will be: numbers[1][49]
+      The third cell will be: numbers[2][49]
+      It will end with [99][49]
+      Then, it goes to [0][48]
       etc...
       */
-      const auto cell = static_cast<uint16_t>(numbers[j][(num_length - 1) - i]);
-      std::cout << "Number[" << j << "][" << (num_length - 1) - i << "] is "
-                << cell << std::endl;
+      const uint16_t cell = numbers[j][(num_length - 1) - i];
+      std::cout << "numbers[" << j << "][" << (num_length - 1) - i
+                << "] is " << cell << std::endl;
       temp_sum += cell;
     }
+    std::cout << std::endl;
     // Take the Remainder of the Previous Sum and add it to the current one.
     temp_sum += remainder;
 
@@ -109,7 +111,7 @@ sum_t getSum(const numbers_array_t &numbers) {
     sum.push_front(temp_sum % 10);
 
     // The remainder is the number without the first digit.
-    remainder = static_cast<uint8_t>(std::floor(temp_sum / 10));
+    remainder = static_cast<uint16_t>(std::floor(temp_sum / 10));
   }
 
   // Push front the remaining digits
